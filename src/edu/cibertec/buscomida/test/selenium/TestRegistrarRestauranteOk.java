@@ -31,7 +31,7 @@ public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 
 	@Test
 	public void testRegistrarRestauranteOK() throws Exception {	
-		
+		selenium.wait(60000);
 		selenium.open("buscomida/paginas/busqueda/buscarPlato.jsf");		
 		selenium.click("link=Registrar Restaurante");
 		selenium.waitForPageToLoad("60000");
