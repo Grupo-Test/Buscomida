@@ -17,7 +17,7 @@ public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 	
 	@Before
 	public void setUp() throws Exception {
-		setUp("http://localhost:8080/BuscomidaV3.0", "*firefox", Integer.valueOf(SELENIUM_SERVER_PORT));
+		setUp("http://localhost:8080/buscomida/", "*firefox", Integer.valueOf(SELENIUM_SERVER_PORT));
 		//WebDriver driver = new ChromeDriver();
 		//String baseUrl = "http://localhost:8080/";
 		//Selenium selenium = new WebDriverBackedSelenium(driver, baseUrl);
@@ -31,10 +31,10 @@ public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 
 	@Test
 	public void testRegistrarRestauranteOK() throws Exception {
-		selenium.waitForPageToLoad("100000");
+		selenium.waitForPageToLoad("30000");
 		
-		selenium.open("/BuscomidaV3.0/");
-		selenium.waitForPageToLoad("100000");
+		selenium.open("/buscomida/");
+		selenium.waitForPageToLoad("30000");
 		selenium.click("link=Registrar Restaurante");
 		selenium.waitForPageToLoad("100000");
 		selenium.type("id=resNombreMostrar", "Prueba0001");
