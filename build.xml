@@ -21,6 +21,11 @@
 		
 		<!--I Ant Selenium PASO 3-->
 		<replace file="${test}/TestRegistrarRestauranteOk.java" token="#selenium.server.port" value="${selenium.server.port}" />
+		<replace file="${test}/PlatoFoundTest.java" token="#selenium.server.port" value="${selenium.server.port}" />
+		<replace file="${test}/PlatoInsertTest.java" token="#selenium.server.port" value="${selenium.server.port}" />
+		<replace file="${test}/PlatoNotFoundTest.java" token="#selenium.server.port" value="${selenium.server.port}" />
+		<replace file="${test}/SucursalInsertTest.java" token="#selenium.server.port" value="${selenium.server.port}" />
+							
 		<!--F Ant Selenium PASO 3-->
 		
 		<!--I Ant Selenium PASO 2-->
@@ -118,6 +123,10 @@
 			<classpath refid="test.classpath" />
 			<formatter type ="brief" usefile="false"/>
 			<test name="edu.cibertec.buscomida.test.selenium.TestRegistrarRestauranteOk"/>
+			<test name="edu.cibertec.buscomida.test.selenium.PlatoFoundTest"/>
+			<test name="edu.cibertec.buscomida.test.selenium.PlatoInsertTest"/>
+			<test name="edu.cibertec.buscomida.test.selenium.PlatoNotFoundTest"/>
+			<test name="edu.cibertec.buscomida.test.selenium.SucursalInsertTest"/>	
 		</junit>
 		
 		<antcall target="stop-server"/>
