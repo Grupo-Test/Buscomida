@@ -5,7 +5,7 @@ import com.thoughtworks.selenium.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+ 
 public class SucursalInsertTest extends SeleneseTestBase {
 	private static final String SELENIUM_SERVER_PORT = "4444";
 	
