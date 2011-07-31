@@ -8,12 +8,12 @@ import com.thoughtworks.selenium.SeleneseTestBase;
 
 public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 	
-	private static final String SELENIUM_SERVER_PORT = "#selenium.server.port";
+	private static final String SELENIUM_SERVER_PORT = "4444";
 	
 	@Before
 	public void setUp() throws Exception {
-		setUp("http://localhost:8080/BuscomidaV3.0", "*chrome", Integer.valueOf(SELENIUM_SERVER_PORT));
-//		WebDriver driver = new FirefoxDriver();
+		setUp("http://localhost:8080/BuscomidaV3.0/paginas/busqueda/buscarPlato.jsf", "*googlechrome", Integer.valueOf(SELENIUM_SERVER_PORT));
+//		WebDriver driver = new FirefoxDriver(); 
 //		String baseUrl = "http://localhost:8080/";
 //		Selenium selenium = new WebDriverBackedSelenium(driver, baseUrl);
 //		selenium.start();

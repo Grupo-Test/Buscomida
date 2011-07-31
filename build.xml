@@ -119,6 +119,7 @@
 			<formatter type ="brief" usefile="false"/>
 			<test name="edu.cibertec.buscomida.test.selenium.TestRegistrarRestauranteOk"/>
 		</junit>
+		
 		<antcall target="stop-server"/>
 	</target>
 
