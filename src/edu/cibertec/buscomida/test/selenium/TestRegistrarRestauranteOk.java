@@ -31,7 +31,8 @@ public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 
 	@Test
 	public void testRegistrarRestauranteOK() throws Exception {	
-		Thread.sleep(60000);
+		
+			
 		selenium.open("buscomida/paginas/busqueda/buscarPlato.jsf");		
 		selenium.click("link=Registrar Restaurante");
 		selenium.waitForPageToLoad("60000");
@@ -45,7 +46,7 @@ public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 		selenium.click("id=j_idt51");
 		selenium.type("id=sucDireccion", "Prueba Direccion");
 		selenium.select("name=j_idt92", "label=ASIA");
-		selenium.click("//div[@id='gmap']/div/div/div/div[4]/div/div/div");
+		//selenium.click("//div[@id='gmap']/div/div/div/div[4]/div/div/div");
 		selenium.type("name=j_idt96", "4539977");
 		selenium.click("id=btnAceptarSuc");
 		selenium.click("id=j_idt65");
