@@ -86,7 +86,7 @@
 	<!--Start Selenium server-->
 	<target name="start-server">
 	<java jar="${lib}/selenium-server-standalone-2.2.0.jar" fork="true" spawn="true">
-		<arg line="-port  ${selenium.server.port}"/>
+		<arg line="-port  ${selenium.server.port}" />
 	</java>
 	<echo taskname="selenium-shutdowm" message="Servidor iniciado"/>
 	</target>
