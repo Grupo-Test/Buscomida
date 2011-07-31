@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+		<h:outputStylesheet name="style.css" library="css"></h:outputStylesheet>
+	</h:head>
+<h:form>
+	<div id="contentleft">
+		<div id="leftnavheading">
+			<h4>#{recurso.MENU_MENU}</h4>
+
+		</div>
+		<div id="leftnav">
+			<ul>
+				<li><a href="../busqueda/buscarPlato.jsf" class="leftnav">#{recurso.MENU_MENU1}	</a></li>
+				<li><h:commandLink value="#{recurso.MENU_MENU2}" action="#{restaurante.loadFoto}" styleClass="leftnav" /></li>
+			</ul>
+		</div>
+		<div id="leftnavheading">
+			<h4>#{recurso.MENU_NUEVAS_ACTUALIZACIONES}</h4>
+		</div>
+		<div class="lefttxtblank">
+			<div class="lefticon">18</div>
+			<div class="leftboldtxtblank">
+				<div class="leftboldtxt">#{recurso.MENU_MENSAJE1}</div>
+				<div class="lefttxt">#{recurso.MENU_MENSAJE2}</div>
+			</div>
+			<div class="leftnormaltxt">#{recurso.MENU_MENSAJE3}</div>
+			<div class="morebutton">
+				<a href="#" class="more">#{recurso.MENU_LEER_MAS} </a>
+			</div>
+		</div>
+	</div>
+</h:form>
+</ui:composition>

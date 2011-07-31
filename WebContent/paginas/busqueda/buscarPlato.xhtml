@@ -1,0 +1,183 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/plantilla/template/plantilla.xhtml">
+
+	<h:head>
+		<h:outputStylesheet name="style.css" library="css" />
+	</h:head>
+
+	<ui:define name="content">
+
+
+		<h:form prependId="false"
+			style="font-family:Arial;font-size:13px;
+		font-weight:bold;color:#b22d00;padding: 0 15px 0 5px;">
+			<div align="center">
+				<h:panelGrid columns="6">
+					<h:outputText value="#{recurso.BUSCAR_PLATO}" />
+					<p:autoComplete id="acSimple" value="#{buscarPlato.condicionPlato}"
+						forceSelection="false" maxResults="6"
+						completeMethod="#{buscarPlato.complete}" immediate="false" />
+
+					<h:outputText value="#{recurso.BUSCAR_PLATO}" />
+					<h:selectOneMenu value="#{buscarPlato.condicionDistrito}">
+						<f:selectItem itemLabel="#{recurso.COMBO_SELECCIONE}"
+							itemValue="000" />
+						<f:selectItems value="#{combo.listaDistrito}" />
+					</h:selectOneMenu>
+					<p:commandButton value="#{recurso.BOTON_BUSCAR}" ajax="false"
+						action="#{buscarPlato.cargarPlatos}" update="pnlListaPlatos" />
+					<h:panelGroup>
+						<div>
+							<a onclick="diagAvanzadas.show();" href="#"
+								style="font-family: Arial; font-size: 13px; font-weight: bold; color: #b22d00; padding: 0;">#{recurso.MENU_OPCIONES_AVANZADAS}</a>
+							<p:dialog id="dialogPlato" widgetVar="diagAvanzadas"
+								position="relative" header="Opciones Avanzadas" modal="true"
+								height="200" width="450" showHeader="false" closable="true">
+								<div id="titleDialog">#{recurso.MENU_OPCIONES_AVANZADAS}</div>
+								<h:panelGrid columns="2" id="displayPlato">
+
+									<h:outputLabel value="#{recurso.BUSCAR_RANGO_PRECIO}" />
+									<h:selectOneMenu value="#{buscarPlato.condicionRangoPrecio}">
+										<f:selectItem itemLabel="#{recurso.COMBO_SELECCIONE}"
+											itemValue="000" />
+										<f:selectItems value="#{combo.listaRangoPrecio}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+								<h:panelGroup>
+									<div align="center">
+
+										<p:commandButton value="#{recurso.BOTON_CANCELAR}"
+											onclick="cerrarSucursal()" />
+									</div>
+								</h:panelGroup>
+							</p:dialog>
+						</div>
+					</h:panelGroup>
+				</h:panelGrid>
+			</div>
+
+			<p:dataGrid id="grillaFondo" var="p" value="#{buscarPlato.lstPlato}"
+				colums="4" rows="9" paginator="true" effect="true"
+				widgetVar="carTabla"
+				emptyMessage="Lo Sentimos..Plato no Encontrado!"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="9,12,15" style="vertical-align: top;">
+				<p:column filterBy="#{p.nombremostrar}">
+					<p:panel  id="pnlListaPlatos" header="#{p.nombremostrar}"
+						style="background:#f1e7ca;color:#b22d00; text-align:center;font-size:10px; font-wieght:bold;">
+						<h:panelGrid columns="1" style="width:100%">
+							<p:graphicImage value="#{p.url}" width="50" height="50" />
+							<p:rating value="#{p.votopromedio}" stars="5" disabled="true" />
+							<p:commandLink update="platoDetail"
+								oncomplete="vistaPlato.show()" title="Ver Detalle">
+								<p:graphicImage value="/images/search.png" style="border:0px" />
+								<f:setPropertyActionListener value="#{p}"
+									target="#{buscarPlato.plato}" />
+							</p:commandLink>
+						</h:panelGrid>
+					</p:panel>
+				</p:column>
+			</p:dataGrid>
+
+			<p:dialog header="Detalle Plato" widgetVar="vistaPlato" width="500"
+				id="colBG" height="600" modal="true" onShow="mymap.checkResize();mymapRuta.checkResize();">
+
+				<p:tabView id="platoDetail" onTabShow="mymapRuta.checkResize();mymap.checkResize();">
+					<p:tab title="Ubicación">
+						<h:panelGrid columns="1">
+							<h:panelGroup>
+								<h:panelGrid columns="2">
+									<h:outputText value="Plato:" />
+									<h:outputText value="#{buscarPlato.plato.nombremostrar}" />
+								</h:panelGrid>
+							</h:panelGroup>
+							<p:gmap
+								center="#{buscarPlato.center.lat},#{buscarPlato.center.lng}"
+								zoom="12" type="HYBRID" style="width:400px;height:400px"
+								model="#{buscarPlato.simpleModel}" widgetVar="mymap" />
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab title="Más Detalles">
+						<h:panelGrid columns="1">
+							<h:panelGroup>
+							</h:panelGroup>
+							<h:panelGrid columns="1">
+								<p:graphicImage value="#{buscarPlato.plato.url}" width="100"
+									height="100" align="center" />
+							</h:panelGrid>
+							<h:panelGroup>
+								<h:panelGrid columns="2">
+									<h:outputText value="Plato:" />
+									<h:outputText value="#{buscarPlato.plato.nombremostrar}" />
+									<h:outputText value="Precio:" />
+									<h:outputText value="#{buscarPlato.plato.descripcion}" />
+									<h:outputText value="Puntaje:" />
+									<h:outputText value="#{buscarPlato.plato.votopromedio}" />
+									<h:outputText value="Vota:" />
+									<p:rating update="messages" />
+									<p:commandButton value="Votar" />
+								</h:panelGrid>
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab title="Ruta!">
+						<h:panelGrid columns="1">
+							<p:gmap onPointClick="handlePointClick(event);" id="mapRuta"
+								center="#{buscarPlato.center.lat},#{buscarPlato.center.lng}"
+								zoom="12" type="ROADMAP" style="width:400px;height:400px"
+								model="#{buscarPlato.rutaModel}" widgetVar="mymapRuta" />
+							<h:inputHidden id="lat" value="#{buscarPlato.lat}" />  
+			        		<h:inputHidden id="lng" value="#{buscarPlato.lng}" /> 
+						</h:panelGrid>
+					</p:tab>
+				</p:tabView>
+			</p:dialog>
+		</h:form>
+		<script type="text/javascript">  
+			var directionsService= new google.maps.DirectionsService();
+			var directionsDisplay= new google.maps.DirectionsRenderer();
+		    function handlePointClick(event) {
+			    try{
+				    var lat = event.latLng.lat();
+				    var lng = event.latLng.lng();
+				 	var strLat = null;
+				 	if(lat>0)
+					 	strLat = "@"+lat;
+				 	else
+					 	strLat = "" +event.latLng.lat();	
+					
+				 	var latD = document.getElementById('lat').value
+				    var lngD = document.getElementById('lng').value
+				 	var strLatD = null;
+				 	if(latD>0)
+					 	strLatD = "@"+latD;
+				 	else
+					 	strLatD = "" +latD;	
+				 	
+				 	directionsDisplay.setMap(mymapRuta.map);
+				 	var request = {
+				 		    origin:strLat +", "+lng, 
+				 		    destination:strLatD +", "+lngD,
+				 		    travelMode: google.maps.DirectionsTravelMode.DRIVING
+				 		  };
+				 	directionsService.route(request, function(result, status) {
+				 	    if (status == google.maps.DirectionsStatus.OK) {
+				 	      directionsDisplay.setDirections(result);
+				 	    }else{
+							alert("Error: Ruta Imposible por pista. Comprate un avion.");
+						}
+				 	  });
+			    }catch(mierror){
+			    }
+		    }    
+		  	
+		</script>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="Buscomida" transaction-type="RESOURCE_LOCAL">
+	
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		
+		<!-- Mantenimiento -->
+		<class>edu.cibertec.buscomida.mantenimiento.persistence.RestauranteEntity</class>
+		<class>edu.cibertec.buscomida.mantenimiento.persistence.SucursalEntity</class>
+		<class>edu.cibertec.buscomida.mantenimiento.persistence.PlatoEntity</class>
+		
+		<!-- Util -->
+		<class>edu.cibertec.buscomida.util.persistence.CategoriaEntity</class>
+		<class>edu.cibertec.buscomida.util.persistence.DistritoEntity</class>
+		<class>edu.cibertec.buscomida.util.persistence.MembresiaEntity</class>
+		<class>edu.cibertec.buscomida.util.persistence.RangoprecioEntity</class>
+		<class>edu.cibertec.buscomida.util.persistence.VotoEntity</class>
+		
+		<!-- Seguridad -->
+		<class>edu.cibertec.buscomida.seguridad.persistence.UsuarioEntity</class>
+				
+		
+		
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/buscomida" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="mysql" />
+			<!-- <property name="eclipselink.ddl-generation" value="drop-and-create-tables" 
+				/> <property name="eclipselink.ddl-generation.output-mode" value="database" 
+				/> -->
+			<property name="eclipselink.logging.level" value="FINE" />
+			<!-- <property name="eclipselink.allow-zero-id" value="true" /> -->
+			<!-- Esto es para que los resultados no queden en el cache -->
+			<!-- <property name="eclipselink.query-results-cache" value="false" /> -->
+			
+			
+		</properties>
+
+	</persistence-unit>
+</persistence>

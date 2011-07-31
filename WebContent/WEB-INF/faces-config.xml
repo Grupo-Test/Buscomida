@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+ <managed-bean>
+  <managed-bean-name>buscarPlato</managed-bean-name>
+  <managed-bean-class>edu.cibertec.buscomida.busqueda.managed.MBBuscarPlato</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>restaurante</managed-bean-name>
+  <managed-bean-class>edu.cibertec.buscomida.mantenimiento.managed.MBRegistarRestaurante</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>idioma</managed-bean-name>
+  <managed-bean-class>edu.cibertec.buscomida.util.managed.MBIdioma</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>combo</managed-bean-name>
+  <managed-bean-class>edu.cibertec.buscomida.util.managed.MBCombo</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <navigation-rule>
+  <from-view-id>/paginas/mantenimiento/registrarRestaurante.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>buscarPlato</from-outcome>
+   <to-view-id>/paginas/busqueda/buscarPlato.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/paginas/busqueda/buscarPlato.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>success</from-outcome>
+   <to-view-id>/paginas/mantenimiento/registrarRestaurante.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <validator>
+  <validator-id>validador</validator-id>
+  <validator-class>edu.cibertec.buscomida.mantenimiento.validator.MantenimientoValidador</validator-class>
+ </validator>
+ <application>
+  <locale-config>
+   <default-locale>en</default-locale>
+   <supported-locale>es</supported-locale>
+   <supported-locale>ja</supported-locale>
+  </locale-config>
+  
+  <resource-bundle>
+   <base-name>edu.cibertec.buscomida.util.resources.MisRecursos</base-name>
+   <var>recurso</var>
+  </resource-bundle>
+    <resource-bundle>
+   <base-name>edu.cibertec.buscomida.mantenimiento.managed.Mantenimiento.MisRecursos</base-name>
+   <var>mantenimiento</var>
+  </resource-bundle>
+ </application>
+</faces-config>

@@ -1,0 +1,158 @@
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background: #e4e4e4 url(../images/bg.jpg) repeat-x left top;
+	font-family: Trebuchet MS, Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #494949;
+	line-height: 200%;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	color: #0a8dbd;
+}
+
+p, ol, ul {
+	list-style: none;
+}
+
+.round {
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;	
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+a {
+	color: #23c4ff;
+}
+	
+#wrapper {
+	margin: 0 auto;
+	padding: 0;
+	width: 980px;
+}
+
+/* Logo */
+
+#logo {
+	margin: 0;
+	padding: 25px 15px;
+	height: 75px;
+}
+	#logo h1 {
+		margin: 0;
+		padding: 0;
+		color: #FFF;
+		font-size: 4.0em;
+		font-weight: normal;
+		text-transform: lowercase;
+		letter-spacing: 4.5px;
+	}
+	#logo h1 span {
+		color: #23c4ff;
+	}
+	#logo p {
+		margin: 0;
+		padding: 20px 0 0 0;
+		color: #FFF;
+		font-size: 16px;
+	}
+
+/* Page */	
+
+#page {
+	margin: 0 auto;
+	padding: 10px;
+	width: 960px;
+	background: #FFF;
+	-moz-box-shadow: 0px 3px 9px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 3px 9px rgba(0,0,0,0.5);
+	box-shadow: 0px 3px 9px rgba(0,0,0,0.5);
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color='#000000')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=90, Color='#000000');
+}
+
+/* Menu */
+
+#menu {
+	margin: 0 auto;
+	padding: 0;
+	height: 65px;
+	background: #23c4ff;
+}
+	#menu ul {
+		margin: 0;
+		padding: 18px 0;		
+	}
+	#menu li{
+		display: inline;
+		margin: 0 20px;
+		padding: 0;
+	}	
+		#menu li a {
+			padding: 5px 6px;
+			font-size: 23px;
+			color: #FFF;
+			text-decoration: none;
+		}	
+		#menu li .active {
+			background: #087fb2;
+		}		
+		#menu li a:hover {
+			background: #087fb2;
+		}
+		
+#splash {
+	margin: 10px 0;
+}
+
+#wrapper2 {
+	margin: 0;
+	padding: 0;
+	background: #e4e4e4;
+}
+
+	/* Sidebar */
+
+	#sidebar {
+		margin: 10px;
+		padding: 10px;
+		float: left;
+		width: 300px;
+		background: #FFF;
+	}
+		#sidebar ul {
+			margin: 0 0 20px 0;
+			padding: 0;
+		}
+		#sidebar li{
+			padding: 5px 0;
+			border-bottom: 1px solid #e4e4e4;
+		}
+	/* Content */
+
+	#content {
+		float: left;
+		width: 590px;
+		margin: 10px 10px 10px 0;
+		padding: 10px;
+		background: #FFF;
+		text-align: justify;
+	}
+		
+	/* Footer */
+
+	#footer {
+		margin: 0 auto;
+		width: 980px;
+		text-align: center;
+	}

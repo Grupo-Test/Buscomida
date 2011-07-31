@@ -1,0 +1,497 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/plantilla/template/plantilla.xhtml">
+
+	<h:head>
+		<h:outputStylesheet name="style.css" library="css"></h:outputStylesheet>
+	</h:head>
+
+	<ui:define name="content">
+
+	<script type="text/javascript">  
+    var currentMarker = null;
+    function handlePointClick(event) {
+		try{currentMarker.setMap(null);currentMarker = null;
+		}catch(mierror){}   
+            document.getElementById('lat').value = event.latLng.lat();   
+            document.getElementById('lng').value = event.latLng.lng();
+            currentMarker = new google.maps.Marker({   
+                position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())   
+            });                    
+            map.addOverlay(currentMarker);   
+        
+    }   
+</script>
+
+		<h:form id="frmRegistrar" prependId="false">
+			<p:panel style="background: #dbc88e;">
+				<p:messages showDetail="true" showSummary="false" style="color:red" id="msgRestaurante"/>
+				<h:panelGrid columns="1"
+					style="width:90%;
+					margin 0; background-color: #dbc88e; font-family:Arial; font-size: 12px;
+						color: #b22d00; font-weight:bold;">
+					<div id="titleH">#{recurso.HEADER_RESTAURANTE}</div>
+					<h:panelGrid columns="2">
+						<h:panelGroup>
+							<h:panelGrid columns="2">
+								<h:outputLabel value="#{recurso.RESTAURANTE_NOMBRE}" />
+								<h:inputText id="resNombreMostrar"
+									value="#{restaurante.restaurante.nombreMostrar}"
+									required="true" maxlength="100"
+									requiredMessage="#{recurso.MENSAJE_VAL_RES_NOMBRE}" size="50">
+									<f:validateLength maximum="50" minimum="5"></f:validateLength>
+								</h:inputText>
+
+								<h:outputLabel value="#{recurso.RESTAURANTE_RAZON_SOCIAL}" />
+								<h:inputText id="resRazon"
+									value="#{restaurante.restaurante.razon}" size="50"
+									required="true" maxlength="100"
+									requiredMessage="#{recurso.MENSAJE_VAL_RES_RAZON_SOCIAL}">
+									<f:validateLength maximum="50" minimum="5"></f:validateLength>
+								</h:inputText>
+
+								<h:outputLabel value="#{recurso.RESTAURANTE_RUC}" />
+								<h:inputText id="resRuc" value="#{restaurante.restaurante.ruc}"
+									size="12" required="true" maxlength="11"
+									requiredMessage="#{recurso.MENSAJE_VAL_RES_RUC} ">
+									<f:validateLength maximum="11" minimum="11"></f:validateLength>
+								</h:inputText>
+
+								<h:outputLabel value="#{recurso.RESTAURANTE_EMAIL}" />
+								<h:inputText  id="resEmail" value="#{restaurante.restaurante.email}" size="50">
+									<f:validateRegex
+										pattern="^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$" />
+								</h:inputText>
+
+								<h:outputLabel value="#{recurso.RESTAURANTE_CONTRASENA}" />
+								<p:password id="rsContrasena" value="#{restaurante.restaurante.contrasena}"
+									size="15" required="true"
+									requiredMessage="#{recurso.MENSAJE_VAL_RES_CONTRASENA}"
+									promptLabel="#{recurso.RESTAURANTE_CONTRASENA_LABEL}"
+									weakLabel="#{recurso.RESTAURANTE_CONTRASENA_NIVEL1}"
+									goodLabel="#{recurso.RESTAURANTE_CONTRASENA_NIVEL2}"
+									strongLabel="#{recurso.RESTAURANTE_CONTRASENA_NIVEL3}">
+								</p:password>
+
+								<h:outputLabel value="#{recurso.RESTAURANTE_RECONTRASENA}" />
+								<h:inputSecret id="resRContrasena" value="#{restaurante.recontrasena}" size="15"
+									required="true"
+									requiredMessage="#{recurso.MENSAJE_VAL_RES_RE_CONTRASENA}">
+								</h:inputSecret>
+							</h:panelGrid>
+						</h:panelGroup>
+						<h:panelGroup>
+							<h:panelGroup>
+								<div align="center">
+									<p:fileUpload
+										fileUploadListener="#{restaurante.cargarFotoRestaurante}"
+										mode="advanced" auto="true" label="#{recurso.CARGAR_FOTO}"
+										fileLimit="1024000"  
+										update="imagenRestaurante" allowTypes="jpg,png,gif,jpeg"
+										immediate="true" />
+								</div>
+							</h:panelGroup>
+							<h:panelGroup>
+								<div align="center">
+									<p:graphicImage id="imagenRestaurante" height="150" width="200"
+										value="#{restaurante.imagenRestaurante}"  cache="false" />
+								</div>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGrid>
+
+					<h:outputLabel value="#{recurso.RESTAURANTE_DESCRIPCION}" />
+					<h:inputTextarea id="resDescripcion" style=" width : 600px;"
+						value="#{restaurante.restaurante.descripcion}"></h:inputTextarea>
+
+					<p:commandButton value="#{recurso.BOTON_AGREGAR_SUCURSAL}"
+						update=":formSucursal:displaySucursal,msgRestaurante"
+						actionListener="#{restaurante.agregarSucursal}"
+						oncomplete="if(document.getElementById('hdnContLstSuc').value!='false')dlgSucursal.show(); 	"
+						title="#{recurso.BOTON_AGREGAR_SUCURSAL}" immediate="true" />
+
+
+					<p:dataTable id="lstSucursal" var="sucursal"
+						value="#{restaurante.lstSucursal}">
+						<p:column
+							style="background:#f1e7ca;color: #b22d00;font-size:10px;font-weight:bold;">
+							<f:facet name="header">#{recurso.T_DISTRITO}</f:facet>
+							<h:outputText value="#{sucursal.distrito.descripcion}" />
+						</p:column>
+
+						<p:column
+							style="background:#f1e7ca;color: #b22d00;font-size:10px;font-weight:bold;">
+							<f:facet name="header">#{recurso.T_TELEFONO}  </f:facet>
+							<h:outputText value="#{sucursal.telefono}" />
+						</p:column>
+
+						<p:column
+							style="background:#f1e7ca;color: #b22d00;font-size:10px;font-weight:bold;">
+							<f:facet name="header">#{recurso.T_UBICACION}</f:facet>
+							<p:commandLink update="displayGoogleMap"
+								action="#{restaurante.mostrarGoogleMap}"
+								oncomplete="dlgGoogleMap.show()" title="#{recurso.VER_FOTO}"
+								immediate="true">
+								<p:graphicImage value="/images/google.gif" style="border:0px" />
+								<f:setPropertyActionListener value="#{sucursal}"
+									target="#{restaurante.sucursal}" />
+							</p:commandLink>
+
+						</p:column>
+						<p:column
+							style="background:#f1e7ca;color: #b22d00;font-size:10px;font-weight:bold;">
+							<f:facet name="header">#{recurso.T_OPERACION}</f:facet>
+							<p:commandLink value="Remove"
+								update="displaySucursal"
+								oncomplete="confirmation.show()" immediate="true">
+								<f:setPropertyActionListener value="#{sucursal}"
+									target="#{restaurante.sucursal}" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+
+					<p:commandButton value="#{recurso.BOTON_AGREGAR_PLATO}"
+						update="displayPlato,msgRestaurante"
+						actionListener="#{restaurante.agregarPlato}"
+						oncomplete="if(document.getElementById('hdnContLstPlato').value!='false')dlgPlato.show();"
+						title="#{recurso.BOTON_AGREGAR_PLATO}" immediate="true" />
+
+					<p:dataTable id="lstPlatos" var="plato"
+						value="#{restaurante.lstPlato}">
+						<p:column
+							style="background:#f1e7ca;color: #b22d00;font-size:10px;font-weight:bold;">
+							<f:facet name="header">#{recurso.T_PLATO}</f:facet>
+							<h:outputText value="#{plato.nombremostrar}" />
+						</p:column>
+
+						<p:column
+							style="background:#f1e7ca;color: #b22d00;font-size:10px;font-weight:bold;">
+							<f:facet name="header">#{recurso.T_CATEGORIA}  </f:facet>
+							<h:outputText value="#{plato.categoria.descripcion}" />
+						</p:column>
+
+						<p:column
+							style="background:#f1e7ca;color: #b22d00;font-size:10px;font-weight:bold;">
+							<f:facet name="header">#{recurso.T_RANGO}  </f:facet>
+							<h:outputText
+								value="#{plato.rangoprecio.minPrecio} - #{plato.rangoprecio.maxPrecio}" />
+						</p:column>
+
+						<p:column
+							style="background:#f1e7ca;color: #b22d00;font-size:10px;font-weight:bold;">
+							<f:facet name="header">#{recurso.T_FOTO}</f:facet>
+							<p:commandLink update="displayFoto"
+								action="#{restaurante.mostrarFoto}" oncomplete="dlgFoto.show()"
+								title="#{recurso.VER_FOTO}" immediate="true">
+								<p:graphicImage value="/images/search.png" style="border:0px" />
+								<f:setPropertyActionListener value="#{plato}"
+									target="#{restaurante.plato}" />
+							</p:commandLink>
+						</p:column>
+						<p:column
+							style="background:#f1e7ca;color: #b22d00;font-size:10px;font-weight:bold;">
+							<f:facet name="header">#{recurso.T_OPERACION}</f:facet>
+							<p:commandLink value="Remove" update="displayPlato"
+								oncomplete="confirmationPlato.show()" immediate="true">
+								<f:setPropertyActionListener value="#{plato}"
+									target="#{restaurante.plato}" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+
+					<h:panelGroup>
+						<div align="center">
+							<p:commandButton value="#{recurso.BOTON_LIMPIAR}" style="width:100px" type="reset" />
+							<p:commandButton value="#{recurso.BOTON_GRABAR}" style="width:100px"
+								actionListener="#{restaurante.grabar}"  update="@form,hdnContLstSuc,hdnContLstPlato"/>
+							<p:commandButton value="#{recurso.BOTON_SALIR}" style="width:100px"
+								action="buscarPlato" immediate="true" ajax="false"/>
+
+						</div>
+					</h:panelGroup>
+					<h:inputHidden id="hdnContLstSuc"
+						value="#{restaurante.flagLstSucursal}" />
+					<h:inputHidden id="hdnContLstPlato" 
+						value="#{restaurante.flagLstPlato}" />
+				</h:panelGrid>
+			</p:panel>
+			
+		</h:form>
+		
+		<h:form prependId="false" id="formSucursal">
+			<p:dialog id="dialogSucursal" showHeader="false" closable="true"
+				showEffect="clip" hideEffect="clip" modal="true" resizable="false"
+				widgetVar="dlgSucursal" onShow="map.checkResize()" height="500"
+				width="480">
+				<p:outputPanel id="pnlSucursal">
+
+					<p:growl showDetail="true" showSummary="false" style="color:red" life="2000"
+						id="msgSucursal" />
+
+					<h:panelGrid id="displaySucursal" columns="1" cellpadding="5">
+
+						<div id="titleDialog">#{recurso.HEADER_SUCURSAL}</div>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{recurso.SUCURSAL_DIRECCION}" />
+							<h:inputText id="sucDireccion"
+								value="#{restaurante.sucursal.direccion}" size="50"
+								maxlength="100" required="true" 
+								requiredMessage="#{recurso.MENSAJE_VAL_SUC_DIRECCION}">
+							</h:inputText>
+
+							<h:outputLabel value="#{recurso.SUCURSAL_DISTRITO}" />
+							<h:selectOneMenu value="#{restaurante.sucursal.distrito.idDistrito}" 
+								required="true" requiredMessage="#{recurso.MENSAJE_VAL_SUC_DISTRITO}" > 
+								<f:selectItem itemLabel="#{recurso.COMBO_SELECCIONE}" />
+								<f:selectItems value="#{combo.listaDistrito}" />
+							</h:selectOneMenu>
+
+							<h:outputLabel value="#{recurso.SUCURSAL_TELEFONO}" />
+							<h:inputText value="#{restaurante.sucursal.telefono}"
+								maxlength="15" required="true"  
+								requiredMessage="#{recurso.MENSAJE_VAL_SUC_TELEFONO}"/>
+								
+							<h:outputLabel value="#{recurso.SUCURSAL_UBICACION}" />
+						</h:panelGrid>
+
+						<h:panelGroup>
+							<div align="center">
+								<p:gmap id="gmap" center="-12.05034,-77.050432" zoom="15"
+									type="ROADMAP" style="width:300px;height:250px"
+									onPointClick="handlePointClick(event);"
+									overlaySelectListener="#{restaurante.onMarkerSelect}"
+									widgetVar="map" />
+							</div>
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<div align="center">
+								<p:commandButton id="btnAceptarSuc"
+									value="#{recurso.BOTON_AGREGAR}"
+									update="hdnFlagSuc,hdnContLstSuc,lstSucursal,msgSucursal"
+									actionListener="#{restaurante.listarSucursal}"
+									oncomplete="jsleep(1);validarDlgSucursal();">
+								</p:commandButton>
+								<p:commandButton value="#{recurso.BOTON_CANCELAR}"
+									onclick="dlgSucursal.hide();" immediate="true" />
+							</div>
+						</h:panelGroup>
+						<h:inputHidden id="lat" value="#{restaurante.sucursal.latitud}"
+							required="true" requiredMessage="#{recurso.MENSAJE_VAL_SUC_GMAP}" />
+						<h:inputHidden id="lng" value="#{restaurante.sucursal.altitud}" />
+						<h:inputHidden id="hdnFlagSuc" value="#{restaurante.flagSucursal}" />
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+		<script type="text/javascript">
+			function validarDlgSucursal(){
+				if($('#hdnFlagSuc').val()=='true'){
+					dlgSucursal.hide();
+					try{currentMarker.setMap(null);currentMarker = null;
+					}catch(mierror){}   
+				}
+			} 
+			function jsleep(s){
+				s=s*500;
+				var a=true;
+				var n=new Date();
+				var w;
+				var sMS=n.getTime();
+				while(a){
+					w=new Date();
+					wMS=w.getTime();
+					if(wMS-sMS>s) a=false;
+				}
+			}
+		</script>
+
+		<p:dialog id="dialogPlato" showHeader="false" closable="false"
+			closeOnEscape="false" showEffect="clip" hideEffect="clip"
+			modal="true" resizable="false" widgetVar="dlgPlato" height="500"
+			width="480">
+			<p:outputPanel id="pnlPlato">
+				<h:form prependId="false" id="formPlato"
+					enctype="multipart/form-data">
+					<p:growl showDetail="true" showSummary="false" style="color:red" life="2000"
+						id="msgPlato" />
+					<h:panelGrid id="displayPlato" columns="1" cellpadding="5">
+						<div id="titleDialog">#{recurso.HEADER_PLATO}</div>
+						<h:panelGrid columns="2">
+
+							<h:outputLabel value="#{recurso.PLATO_NOMBRE_MOSTRAR}" />
+							<h:inputText id="nombremostrar" maxlength="100"
+								value="#{restaurante.plato.nombremostrar}" size="50"  
+								required="true" requiredMessage="#{recurso.MENSAJE_VAL_PLATO_NOMBRE}"/>
+
+							<h:outputLabel value="#{recurso.PLATO_CATEGORIA}" />
+							<h:selectOneMenu
+								value="#{restaurante.plato.categoria.idCategoria}" required="true"
+								requiredMessage="#{recurso.MENSAJE_VAL_PLATO_CATEGORIA}">
+								<f:selectItem itemLabel="#{recurso.COMBO_SELECCIONE}"/>
+								<f:selectItems value="#{combo.listaCategoria}" />
+							</h:selectOneMenu>
+
+							<h:outputLabel value="#{recurso.PLATO_RANGO}" />
+							<h:selectOneMenu value="#{restaurante.plato.rangoprecio.idRango}" 
+								required="true" requiredMessage="#{recurso.MENSAJE_VAL_PLATO_RANGO}">
+								<f:selectItem itemLabel="#{recurso.COMBO_SELECCIONE}"/>
+								<f:selectItems value="#{combo.listaRangoPrecio}" />
+							</h:selectOneMenu>
+
+							<h:outputLabel value="#{recurso.PLATO_DESCRIPCION}" />
+							<h:inputText value="#{restaurante.plato.descripcion}" size="50" />
+						</h:panelGrid>
+
+						<h:panelGroup>
+							<div align="center">
+								<p:fileUpload
+									fileUploadListener="#{restaurante.cargarFotoPlato}"
+									mode="advanced" auto="true" label="#{recurso.CARGAR_FOTO}" update="imagen"
+									allowTypes="jpg,png,gif" />
+							</div>
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<div align="center">
+								<p:graphicImage id="imagen" height="200" width="200"
+									value="#{restaurante.imagenPlato}" cache="false" />
+							</div>
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<div align="center">
+								<p:commandButton value="#{recurso.BOTON_AGREGAR}"
+									update="hdnFlagPlato,hdnContLstPlato,lstPlatos,msgPlato" 
+									actionListener="#{restaurante.listarPlato}"
+									oncomplete="jsleep(1);validarDlgPlato();">
+								</p:commandButton>
+								<p:commandButton value="#{recurso.BOTON_CANCELAR}"
+									oncomplete="dlgPlato.hide();" />
+							</div>
+						</h:panelGroup>
+						<h:inputHidden id="hdnFlagPlato" value="#{restaurante.flagPlato}" />
+					</h:panelGrid>
+				</h:form>
+			</p:outputPanel>
+		</p:dialog>
+		<script type="text/javascript">
+			function validarDlgPlato(){
+				if($('#hdnFlagPlato').val()=='true'){
+					dlgPlato.hide();
+				}
+			} 
+			
+		</script>
+
+		<p:dialog id="confirSucursal" showHeader="false" closable="true"
+			width="480" showEffect="explode" hideEffect="explode"
+			severity="alert" widgetVar="confirmation" appendToBody="true">
+			<p:outputPanel id="pnlConfirSucursal">
+				<h:form prependId="false" id="formConfirSucursal">
+					<h:panelGrid id="displayconfirSucursal" columns="1" cellpadding="5">
+						<div id="titleDialog">#{recurso.HEADER_CONFIRMACION}</div>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{recurso.MENSAJE_ELIMINAR_SUCURSAL}" />
+						</h:panelGrid>
+
+						<h:panelGroup>
+							<div align="center">
+								<p:commandButton value="SI" update="lstSucursal,hdnContLstSuc"
+									actionListener="#{restaurante.eliminarSucursal}"
+									oncomplete="confirmation.hide()">
+								</p:commandButton>
+								<p:commandButton value="NO" onclick="confirmation.hide()"
+									type="button" />
+							</div>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:form>
+			</p:outputPanel>
+		</p:dialog>
+
+
+		<p:dialog id="confirPlato" showHeader="false" closable="true"
+			message="#{recurso.MENSAJE_ELIMINAR_PLATO}" width="480"
+			showEffect="explode" hideEffect="explode"
+			header="#{recurso.HEADER_CONFIRMACION}" severity="alert"
+			widgetVar="confirmationPlato" appendToBody="true">
+			<p:outputPanel id="pnlConfirPlato">
+				<h:form prependId="false" id="formConfirPlato">
+					<h:panelGrid id="displayconfirPlato" columns="1" cellpadding="5">
+						<div id="titleDialog">#{recurso.HEADER_CONFIRMACION}</div>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{recurso.MENSAJE_ELIMINAR_PLATO}" />
+						</h:panelGrid>
+
+						<h:panelGroup>
+							<div align="center">
+								<p:commandButton value="SI" update="lstPlatos,hdnContLstPlato"
+									actionListener="#{restaurante.eliminarPlato}"
+									oncomplete="confirmationPlato.hide()">
+								</p:commandButton>
+								<p:commandButton value="NO" onclick="confirmationPlato.hide()"
+									type="button" />
+							</div>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:form>
+			</p:outputPanel>
+		</p:dialog>
+
+		<p:dialog id="dialogFoto" showHeader="false" showEffect="clip"
+			hideEffect="clip" modal="true" resizable="false" widgetVar="dlgFoto"
+			height="320" width="280">
+			<p:outputPanel id="pnlFoto">
+				<h:form prependId="false" id="formFoto"
+					enctype="multipart/form-data">
+					<h:panelGrid id="displayFoto" columns="1">
+						<p:graphicImage id="imagenFoto" height="280" width="260"
+							value="#{restaurante.imagenMostrar}" cache="false" />
+						<h:panelGroup>
+							<div align="center">
+								<p:commandButton value="#{recurso.BOTON_CERRAR}"
+									oncomplete="dlgFoto.hide()" />
+							</div>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:form>
+			</p:outputPanel>
+		</p:dialog>
+
+		<p:dialog id="dialogGoogleMap" showHeader="false" showEffect="clip"
+			hideEffect="clip" modal="true" resizable="false"
+			widgetVar="dlgGoogleMap" height="350" width="330"
+			onShow="map2.checkResize()">
+			<p:outputPanel id="pnlGoogleMap">
+				<h:form prependId="false" id="formGoogleMap">
+
+					<h:panelGrid id="displayGoogleMap" columns="1">
+						<h:panelGroup>
+							<div align="center">
+								<p:gmap id="gmap2"
+									center="#{restaurante.center.lat},#{restaurante.center.lng}"
+									zoom="15" type="ROADMAP" style="width:300px;height:250px"
+									model="#{restaurante.emptyModel}" widgetVar="map2" />
+							</div>
+						</h:panelGroup>
+						<h:panelGroup>
+							<div align="center">
+								<p:commandButton value="#{recurso.BOTON_CERRAR}"
+									oncomplete="dlgGoogleMap.hide()" />
+							</div>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:form>
+			</p:outputPanel>
+		</p:dialog>
+
+
+
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,28 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+	<h:head>
+		<title>${recurso.HEADER_TITULO}</title>
+		<h:outputStylesheet name="style.css" library="css"></h:outputStylesheet>
+
+	</h:head>
+	<h:form>
+	<ul>
+		<h:commandLink action="#{idioma.cambiarES}" ><h:graphicImage title="#{recurso.IDIOMA_ES}" value="/images/pe.gif" height="20" width="30" /></h:commandLink>
+		<h:commandLink action="#{idioma.cambiarEN}" ><h:graphicImage title="#{recurso.IDIOMA_EN}" value="/images/us.gif" height="20" width="30" /></h:commandLink>
+		<h:commandLink action="#{idioma.cambiarJA}" ><h:graphicImage title="#{recurso.IDIOMA_EN}" value="/images/jp.gif" height="20" width="30" /></h:commandLink>		
+		<li><a href="#" class="menu">${recurso.HEADER_HOME}</a>
+		</li>
+		<li><a href="#" class="menu">${recurso.HEADER_NOSOTROS}</a>
+		</li>
+		<li><a href="#" class="menu">${recurso.HEADER_CLIENTES}</a>
+		</li>
+		<li><a href="#" class="menu">${recurso.HEADER_UBICANOS}</a>
+		</li>
+	</ul>
+	</h:form>
+</ui:composition>

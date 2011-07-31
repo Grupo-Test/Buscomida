@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM
+  NAME="rules:#paginas#mantenimiento#registrarRestaurante.xhtml"
+  PATH="/paginas/mantenimiento/registrarRestaurante.xhtml"
+  SHAPE="240,168,50,25" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#paginas#mantenimiento#registrarRestaurante.xhtml:0"
+   NAME="item" PATH="/paginas/mantenimiento/registrarRestaurante.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="buscarPlato::#paginas#busqueda#buscarPlato.xhtml" NAME="output"
+    PATH="/paginas/busqueda/buscarPlato.xhtml"
+    TARGET="rules:#paginas#busqueda#buscarPlato.xhtml"
+    TITLE="buscarPlato" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#paginas#busqueda#buscarPlato.xhtml"
+  PATH="/paginas/busqueda/buscarPlato.xhtml" SHAPE="462,108,0,0"
+  model-entity="JSFProcessGroup" persistent="true">
+  <PROCESS-ITEM ID="rules:#paginas#busqueda#buscarPlato.xhtml:0"
+   NAME="item" PATH="/paginas/busqueda/buscarPlato.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success::#paginas#mantenimiento#registrarRestaurante.xhtml"
+    NAME="output"
+    PATH="/paginas/mantenimiento/registrarRestaurante.xhtml"
+    TARGET="rules:#paginas#mantenimiento#registrarRestaurante.xhtml"
+    TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

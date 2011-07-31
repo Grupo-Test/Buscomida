@@ -1,0 +1,42 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+	
+		
+	<h:head>	
+	<h:outputStylesheet name="style.css" library="css"></h:outputStylesheet>	
+	</h:head>
+
+<!-- Begin Footer -->
+	<div id="footerbg">
+	  <div id="footerblank">
+	    <div id="footer">
+	      <div id="footerbox">
+	        <div class="footerheading"><h4> #{recurso.FOOTER_ANUNCIE_AQUI}</h4></div>
+	        <div class="footertxt">${recurso.FOOTER_ANUNCIO_1}</div>
+	        <div class="footerbutton"><a href="#" class="button">${recurso.FOOTER_LEER_MAS}</a></div>
+	      </div>
+	      <div id="footermid"><div class="footerheading"><h4>#{recurso.FOOTER_ANUNCIE_AQUI}</h4></div>
+	      <div class="footertxt">${recurso.FOOTER_ANUNCIO_2}</div>
+	      <div class="footerbutton"><a href="#" class="button">${recurso.FOOTER_LEER_MAS}</a></div>
+	      </div>
+	      <div id="footerlast">
+	        <div class="footerheading">
+	          <h4>#{recurso.FOOTER_ANUNCIE_AQUI}</h4>
+	        </div>
+	        <div class="footertxt">${recurso.FOOTER_ANUNCIO_3}</div>
+	        <div class="footerbutton"><a href="#" class="button">${recurso.FOOTER_LEER_MAS}</a></div>
+	      </div>
+	      <div id="footerlinks"> <a href="#" class="footerlinks">${recurso.FOOTER_NOSOTROS}</a> | <a href="#" class="footerlinks">${recurso.FOOTER_UBICANOS}</a></div>
+	      <div id="copyrights">${recurso.FOOTER_COPYRIGHT}</div>
+	      <div id="designedby">${recurso.FOOTER_DISEÑADO_POR} <a href="#" target="_blank" class="designedby">${recurso.FOOTER_DESIÑADOR}</a> </div>      
+	    </div>
+	  </div>
+	</div>
+	<!-- End Footer -->
+	
+</ui:composition>

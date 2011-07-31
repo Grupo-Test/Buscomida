@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!-- Build file for our first application -->
+
+<project name="Ant test project" default="all" basedir=".">
+	
+	<property file="build.properties" />
+	
+	<target name="prepare">		
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${build}" defaultexcludes="false">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+		<mkdir dir="${build}"/>
+		<mkdir dir="${lib}"/>
+		<mkdir dir="${src}"/>
+		<mkdir dir="${src}/javax/faces"/>
+		<mkdir dir="${war.dir}/WEB-INF"/>
+		<mkdir dir="${war.dir}/WEB-INF/classes"/>
+		<mkdir dir="${classdir}"/>
+		
+		<!--I Ant Selenium PASO 2-->
+		<antcall target="start-server"/>
+		<!--F Ant Selenium PASO 2-->
+	</target>
+	
+	<!-- Destino Principal -->
+	<target name="all" depends="prepare,build,buildWar" />
+	
+	<!-- Compilar Archivos Java y guarda en build/src directorio -->
+	<target name="build">		
+		<!--
+		<copy todir="${lib}">
+		    <fileset dir="${web}/WEB-INF/lib"/>
+		</copy>
+		
+		-->
+		
+		<javac srcdir="${src}" destdir="${classdir}" debug="true" includes="**/*.java">
+			<classpath>
+				<fileset dir="${lib}" includes="**/*"/>
+			</classpath>
+		</javac>
+	</target>
+	
+	<!-- Crea el WAR-->
+	<target name="buildWar">
+		<echo>Construyendo War</echo>
+		
+		<copy todir="${war.dir}/WEB-INF/classes">
+			<fileset dir="${classdir}" includes="**/*.class"/>
+		</copy>
+		
+		<copy todir="${war.dir}">
+			<fileset dir="${web}" includes="**/*.*"/>
+		</copy>		
+		<mkdir dir="${war.dir}/WEB-INF/classes/META-INF"/>	
+		
+		<copy file="${src}/META-INF/persistence.xml" todir="${war.dir}/WEB-INF/classes/META-INF" failonerror="false" />
+		
+		<copy file="${src}/${prop}/MisRecursos_en.properties" todir="${war.dir}/WEB-INF/classes/${prop}" failonerror="false" />
+		<copy file="${src}/${prop}/MisRecursos_es.properties" todir="${war.dir}/WEB-INF/classes/${prop}" failonerror="false" />
+		<copy file="${src}/${prop}/MisRecursos_ja.properties" todir="${war.dir}/WEB-INF/classes/${prop}" failonerror="false" />
+		
+		<copy file="${src}/javax/faces/Messages_es.properties" todir="${war.dir}/WEB-INF/classes/javax/faces" failonerror="false" />
+
+		<jar destfile="${war.dir}/${war.file}" basedir="${war.dir}" />
+	
+		<!-- Copy wat to tomcat webapps dir-->
+		<copy todir="${tomcat.webapp.dir}" file="${war.dir}/${war.file}"/>
+	</target>
+	
+	<!--I Selenium PASO 1-->
+	
+	<!--Start Selenium server-->
+	<target name="start-server">
+	<java jar="${lib}/selenium-server-standalone-2.2.0.jar" fork="true" spawn="true">
+		<arg line="-port  ${selenium.server.port}"/>
+	</java>
+	<echo taskname="selenium-shutdowm" message="Servidor iniciado"/>
+	</target>
+
+
+	<!-- Stop selenium server -->
+	<target name="stop-server">
+		<get taskname="selenium-shutdowm"
+		 src="http://localhost:${selenium.server.port}/selenium-server/driver/?cmd=shutDownSeleniumServer"
+		 dest="result.txt"
+		 ignoreerrors="true"/>
+	<echo taskname="selenium-shutdown" message="Servidor apagado" />
+	</target>
+
+	<!--F Selenium PASO -->	
+</project>
