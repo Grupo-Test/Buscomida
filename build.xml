@@ -58,12 +58,19 @@
 		
 		<copy file="${src}/META-INF/persistence.xml" todir="${war.dir}/WEB-INF/classes/META-INF" failonerror="false" />
 		
+		<!--Inicio i18n Textos Web-->
 		<copy file="${src}/${prop}/MisRecursos_en.properties" todir="${war.dir}/WEB-INF/classes/${prop}" failonerror="false" />
 		<copy file="${src}/${prop}/MisRecursos_es.properties" todir="${war.dir}/WEB-INF/classes/${prop}" failonerror="false" />
 		<copy file="${src}/${prop}/MisRecursos_ja.properties" todir="${war.dir}/WEB-INF/classes/${prop}" failonerror="false" />
+		<!--Fin i18n-->
 		
+		<!--Inicio Validaciones-->
+		<copy file="${src}/${mant}/Mantenimiento_en.properties" todir="${war.dir}/WEB-INF/classes/${mant}" failonerror="false" />
+		<copy file="${src}/${mant}/Mantenimiento_es.properties" todir="${war.dir}/WEB-INF/classes/${mant}" failonerror="false" />
+		<copy file="${src}/${mant}/Mantenimiento_ja.properties" todir="${war.dir}/WEB-INF/classes/${mant}" failonerror="false" />
+		<!--Fin Validaciones-->
 		<copy file="${src}/javax/faces/Messages_es.properties" todir="${war.dir}/WEB-INF/classes/javax/faces" failonerror="false" />
-
+		
 		<jar destfile="${war.dir}/${war.file}" basedir="${war.dir}" />
 	
 		<!-- Copy wat to tomcat webapps dir-->

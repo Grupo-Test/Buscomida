@@ -9,10 +9,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
-@ManagedBean(name="idioma")
+//@ManagedBean(name="idioma")
 public class MBIdioma {
 	
-	private String locale="en";
+	private String locale="es";
 
 	  public void setLocale(String locale) {
 	    this.locale = locale;
