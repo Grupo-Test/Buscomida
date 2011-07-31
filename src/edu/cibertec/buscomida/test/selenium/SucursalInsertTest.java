@@ -13,7 +13,7 @@ public class SucursalInsertTest extends SeleneseTestBase {
 	public void setUp() throws Exception {
 		setUp("http://localhost:8080/", "*firefox", Integer.valueOf(SELENIUM_SERVER_PORT));		
 	}
-
+ 
 	@Test
 	public void testSucursalInsert() throws Exception {
 		selenium.open("/buscomida/paginas/busqueda/buscarPlato.jsf");
