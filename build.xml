@@ -19,6 +19,10 @@
 		<mkdir dir="${war.dir}/WEB-INF/classes"/>
 		<mkdir dir="${classdir}"/>
 		
+		<!--I Ant Selenium PASO 3-->
+		<replace file="${test}/test/selenium/TestRegistrarRestauranteOk.java" token="#selenium.server.port" value="${selenium.server.port}" />
+		<!--F Ant Selenium PASO 3-->
+		
 		<!--I Ant Selenium PASO 2-->
 		<antcall target="start-server"/>
 		<!--F Ant Selenium PASO 2-->
@@ -96,6 +100,25 @@
 		 ignoreerrors="true"/>
 	<echo taskname="selenium-shutdown" message="Servidor apagado" />
 	</target>
+	<!--F Selenium PASO -->
+	
+	
+	<!-- I Selenium PASO4-->
+	
+	<target name="test" depends="all">
+		<path id="test.classpath">
+			<pathelement location="${build}/src"/>
+			<fileset dir="${lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</path>
 
-	<!--F Selenium PASO -->	
+		<junit haltonfailure="yes"  showoutput="yes">
+			<classpath refid="test.classpath" />
+			<formatter type ="brief" usefile="false"/>
+			<test name="edu.cibertec.buscomida.test.selenium.TestRegistrarRestauranteOk"/>
+		</junit>
+		<antcall target="stop-server"/>
+	</target>
+
 </project>
