@@ -20,7 +20,7 @@
 		<mkdir dir="${classdir}"/>
 		
 		<!--I Ant Selenium PASO 3-->
-		<replace file="${test}/test/selenium/TestRegistrarRestauranteOk.java" token="#selenium.server.port" value="${selenium.server.port}" />
+		<replace file="${test}/TestRegistrarRestauranteOk.java" token="#selenium.server.port" value="${selenium.server.port}" />
 		<!--F Ant Selenium PASO 3-->
 		
 		<!--I Ant Selenium PASO 2-->
@@ -106,6 +106,7 @@
 	<!-- I Selenium PASO4-->
 	
 	<target name="test" depends="all">
+		<echo>Correindo JUNIT</echo>
 		<path id="test.classpath">
 			<pathelement location="${build}/src"/>
 			<fileset dir="${lib}">

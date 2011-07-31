@@ -8,7 +8,7 @@ import com.thoughtworks.selenium.SeleneseTestBase;
 
 public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 	
-	private static final String SELENIUM_SERVER_PORT = "#selenium.server.port";
+	private static final String SELENIUM_SERVER_PORT = "${selenium.server.port}";
 	
 	@Before
 	public void setUp() throws Exception {
