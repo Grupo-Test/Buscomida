@@ -113,7 +113,7 @@
 				<include name="**/*.jar" />
 			</fileset>
 		</path>
-
+ 
 		<junit haltonfailure="yes"  showoutput="yes">
 			<classpath refid="test.classpath" />
 			<formatter type ="brief" usefile="false"/>

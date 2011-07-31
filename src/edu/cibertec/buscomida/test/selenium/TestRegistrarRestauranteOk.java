@@ -3,7 +3,12 @@ package edu.cibertec.buscomida.test.selenium;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverBackedSelenium;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 import com.thoughtworks.selenium.SeleneseTestBase;
+import com.thoughtworks.selenium.Selenium;
 
 
 public class TestRegistrarRestauranteOk extends SeleneseTestBase {
@@ -12,7 +17,12 @@ public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 	
 	@Before
 	public void setUp() throws Exception {
-		setUp("http://localhost:8080/BuscomidaV3.0/paginas/busqueda/buscarPlato.jsf", "*firefox", Integer.valueOf(SELENIUM_SERVER_PORT));
+		setUp("http://localhost:8080/BuscomidaV3.0", "*firefox", Integer.valueOf(SELENIUM_SERVER_PORT));
+		//WebDriver driver = new ChromeDriver();
+		//String baseUrl = "http://localhost:8080/";
+		//Selenium selenium = new WebDriverBackedSelenium(driver, baseUrl);
+		//selenium.start();
+
 //		WebDriver driver = new FirefoxDriver(); 
 //		String baseUrl = "http://localhost:8080/";
 //		Selenium selenium = new WebDriverBackedSelenium(driver, baseUrl);
@@ -21,9 +31,10 @@ public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 
 	@Test
 	public void testRegistrarRestauranteOK() throws Exception {
-		selenium.open("/BuscomidaV3.0/paginas/busqueda/buscarPlato.jsf");
+		selenium.open("/BuscomidaV3.0/");
+		selenium.waitForPageToLoad("100000");
 		selenium.click("link=Registrar Restaurante");
-		selenium.waitForPageToLoad("30000");
+		selenium.waitForPageToLoad("100000");
 		selenium.type("id=resNombreMostrar", "Prueba0001");
 		selenium.type("id=resRazon", "Prueba001");
 		selenium.type("id=resRuc", "12345678911");
