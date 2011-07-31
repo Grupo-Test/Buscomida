@@ -12,7 +12,7 @@ public class TestRegistrarRestauranteOk extends SeleneseTestBase {
 	
 	@Before
 	public void setUp() throws Exception {
-		setUp("http://localhost:8080/BuscomidaV3.0", "*firefox", Integer.valueOf(SELENIUM_SERVER_PORT));
+		setUp("http://localhost:8080/BuscomidaV3.0", "*chrome", Integer.valueOf(SELENIUM_SERVER_PORT));
 //		WebDriver driver = new FirefoxDriver();
 //		String baseUrl = "http://localhost:8080/";
 //		Selenium selenium = new WebDriverBackedSelenium(driver, baseUrl);
