@@ -24,8 +24,7 @@ public class SucursalInsertTest extends SeleneseTestBase {
 		selenium.type("name=j_idt96", "72543855");
 		selenium.type("id=sucDireccion", "Av. El Libertador , Juan Pablo II");
 		selenium.click("id=btnAceptarSuc");
-		selenium.click("id=btnAceptarSuc");
-		selenium.click("//div[@id='gmap']/div/div/div/div[4]/div/div/div");
+		selenium.click("id=btnAceptarSuc");		
 		selenium.click("id=btnAceptarSuc");
 		verifyTrue(selenium.isTextPresent("LA MOLINA"));
 	}
