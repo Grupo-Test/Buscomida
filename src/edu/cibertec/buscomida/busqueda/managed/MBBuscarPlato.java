@@ -1,3 +1,5 @@
+
+
 package edu.cibertec.buscomida.busqueda.managed;
 
 import java.util.ArrayList;
