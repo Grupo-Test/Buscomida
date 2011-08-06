@@ -118,7 +118,18 @@
 				<include name="**/*.jar" />
 			</fileset>
 		</path>
- 
+ 		
+		<echo>Pruebas Unitarias</echo>
+		
+		
+		 <junit fork="yes" haltonfailure="yes">
+		    <test name="edu.cibertec.buscomida.test.junit.PlatoDAOImplTest" />
+		    <formatter type="plain" usefile="false" />
+		    <classpath refid="test.classpath" />
+		  </junit>
+		
+		
+		<echo>Pruebas Funcionales</echo>
 		<junit haltonfailure="yes"  showoutput="yes">
 			<classpath refid="test.classpath" />
 			<formatter type ="brief" usefile="false"/>
