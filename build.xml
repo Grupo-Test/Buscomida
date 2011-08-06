@@ -12,6 +12,7 @@
 			</fileset>
 		</delete>
 		<mkdir dir="${build}"/>
+		<mkdir dir="${build}/src/META-INF"/>
 		<mkdir dir="${lib}"/>
 		<mkdir dir="${src}"/>
 		<mkdir dir="${src}/javax/faces"/>
@@ -63,9 +64,11 @@
 		<copy todir="${war.dir}">
 			<fileset dir="${web}" includes="**/*.*"/>
 		</copy>		
+		
 		<mkdir dir="${war.dir}/WEB-INF/classes/META-INF"/>	
 		
 		<copy file="${src}/META-INF/persistence.xml" todir="${war.dir}/WEB-INF/classes/META-INF" failonerror="false" />
+		<copy file="${src}/META-INF/persistence.xml" todir="${classdir}/META-INF" failonerror="false" />
 		
 		<!--Inicio i18n Textos Web-->
 		<copy file="${src}/${prop}/MisRecursos_en.properties" todir="${war.dir}/WEB-INF/classes/${prop}" failonerror="false" />
@@ -93,6 +96,8 @@
 	<java jar="${lib}/selenium-server-standalone-2.2.0.jar" fork="true" spawn="true">
 		<arg line="-port  ${selenium.server.port}" />
 	</java>
+	
+
 	<echo taskname="selenium-shutdowm" message="Servidor iniciado"/>
 	</target>
 
@@ -124,6 +129,10 @@
 		
 		 <junit fork="yes" haltonfailure="yes">
 		    <test name="edu.cibertec.buscomida.test.junit.PlatoDAOImplTest" />
+		 	<test name="edu.cibertec.buscomida.test.junit.ComboImplTest" />
+		    <test name="edu.cibertec.buscomida.test.junit.RestauranteDAOImplTest" />
+		    <test name="edu.cibertec.buscomida.test.junit.SucursalDAOImplTest" />
+		    	
 		    <formatter type="plain" usefile="false" />
 		    <classpath refid="test.classpath" />
 		  </junit>
